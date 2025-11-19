@@ -9,13 +9,12 @@ from openai import OpenAI
 import os
 
 
-def get_fortune(birth_date: datetime.date, birth_time: datetime.time) -> dict:
+def get_fortune(birth_datetime: datetime) -> dict:
     """
     核心函數：計算八字並生成 AI 運勢解析
     
     Args:
-        birth_date: 出生日期 (datetime.date 對象)
-        birth_time: 出生時間 (datetime.time 對象)
+        birth_datetime: 完整出生日期時間 (datetime 對象)
         
     Returns:
         dict: 包含以下欄位
@@ -34,9 +33,6 @@ def get_fortune(birth_date: datetime.date, birth_time: datetime.time) -> dict:
     """
     
     try:
-        # 組合完整日期時間
-        birth_datetime = datetime.combine(birth_date, birth_time)
-        
         # === 步驟 1: 農曆轉換與八字計算 ===
         solar = Solar.fromYmdHms(
             birth_datetime.year,
