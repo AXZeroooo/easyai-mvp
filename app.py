@@ -331,18 +331,18 @@ if st.button("🧠 AI 顧問請分析", use_container_width=True):
             # 顯示八字四柱
             st.markdown("### 八字四柱")
             bazi_parts = result['bazi_full'].split()
-            
-            pillars_html = '<div class="pillar-container">'
             labels = ['年柱', '月柱', '日柱', '時柱']
+            
+            # 使用 Streamlit columns 確保可靠渲染
+            cols = st.columns(4)
             for i, (label, pillar) in enumerate(zip(labels, bazi_parts)):
-                pillars_html += f'''
-                <div class="pillar-box">
-                    <div class="pillar-label">{label}</div>
-                    <div class="pillar-value">{pillar}</div>
-                </div>
-                '''
-            pillars_html += '</div>'
-            st.markdown(pillars_html, unsafe_allow_html=True)
+                with cols[i]:
+                    st.markdown(f"""
+                    <div class="pillar-box">
+                        <div class="pillar-label">{label}</div>
+                        <div class="pillar-value">{pillar}</div>
+                    </div>
+                    """, unsafe_allow_html=True)
             
             # 顯示 AI 運勢解析
             st.markdown("### 💡 AI 運勢解析")
